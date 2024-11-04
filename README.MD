@@ -205,5 +205,6 @@ El proyecto incluye un proxy inverso que permite acceder a los servicios a trav�
 ```
 
 ## Simulación en Netlify
-Para facilitar el acceso sin depender de Docker, se ha añadido una carpeta `netlify` que contiene los archivos de los volúmenes generados. Esto permite simular el despliegue en Docker cuando se accede a la aplicación en Netlify.
+Para facilitar el acceso sin depender de Docker, se ha añadido una carpeta `netlify` que contiene los archivos de los volúmenes generados. Esto permite simular el despliegue en Docker cuando se accede a la aplicación en Netlify.[Pagina de netlifly](https://appprocalculadora.netlify.app/)
+
 
