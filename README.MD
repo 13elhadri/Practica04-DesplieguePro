@@ -147,60 +147,59 @@ El proyecto incluye un proxy inverso que permite acceder a los servicios a trav√
 - `app.com/test` - Acceso a los resultados de los tests unitarios.
 - `app.com/coverage` - Acceso al informe de cobertura de Jacoco.
 
-``` nginx.conf
+```nginx
+events {}
 
-    events {}
+http {
+    server {
+        listen 80;
+        server_name app.com;
 
-    http {
-        server {
-            listen 80;
-            server_name app.com;
+        return 301 https://$host$request_uri;
+    }
 
-            return 301 https://$host$request_uri;
-        }
+    server {
+        listen 443 ssl;
+        server_name app.com;
 
-        server {
-            listen 443 ssl;
-            server_name app.com;
-
-            ssl_certificate /etc/nginx/certs/app.crt;
-            ssl_certificate_key /etc/nginx/certs/app.key;
+        ssl_certificate /etc/nginx/certs/app.crt;
+        ssl_certificate_key /etc/nginx/certs/app.key;
             
 
-            location / {
-                proxy_pass http://app_server;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-            }
+        location / {
+            proxy_pass http://app_server;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
 
-            location /doc/ {
-                proxy_pass http://doc_server;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-            }
+        location /doc/ {
+            proxy_pass http://doc_server;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
 
-            location /coverage/ {
-                proxy_pass http://coverage_server/;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-            }
+        location /coverage/ {
+            proxy_pass http://coverage_server/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
 
 
-            location /test/ {
-                proxy_pass http://test_server/;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-            }
+        location /test/ {
+            proxy_pass http://test_server/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
+}
 
 ```
 
