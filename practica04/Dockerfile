@@ -15,9 +15,9 @@ FROM eclipse-temurin:21-jre-alpine AS run
 
 WORKDIR /app
 
-COPY --from=build /app/build/libs/*.jar /app/my-app.jar
+COPY --from=build /app/build/libs/*.jar /app/calculadora.jar
 COPY --from=build /app/build/jacoco /app/jacoco
 COPY --from=build /app/build/reports/tests/test /app/test
 COPY --from=build /app/build/docs/javadoc /app/javadoc
 
-ENTRYPOINT ["java", "-jar", "/app/my-app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/calculadora.jar"]

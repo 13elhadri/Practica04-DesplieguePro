@@ -33,7 +33,7 @@ tasks.check {
     dependsOn(tasks.jacocoTestReport)
 }
 tasks.jar {
-    archiveFileName.set("my-app.jar")
+    archiveFileName.set("calculadora.jar")
     manifest {
         attributes["Main-Class"] = "org.example.Main"
     }
