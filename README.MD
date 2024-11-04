@@ -12,8 +12,9 @@ El despliegue se realiza utilizando Docker para administrar múltiples contenedo
 
 1. **Contenedor principal**: Contiene la aplicación de la calculadora. Utiliza un Dockerfile para copiar los archivos de los tests, el Javadoc, y los reportes de Jacoco en volúmenes compartidos.
 
+`Dockerfile`
 
-```dockerfile
+```
     FROM gradle:jdk21-alpine AS build
 
     WORKDIR /app
@@ -48,7 +49,9 @@ El despliegue se realiza utilizando Docker para administrar múltiples contenedo
 Cada servidor se conecta a un volumen específico para acceder a sus archivos HTML y mostrar los resultados de la aplicación de forma independiente.
 
 
-```docker-compose.yml
+`docker-compose.yml`
+
+```
 
 services:
   app:
@@ -143,7 +146,9 @@ El proyecto incluye un proxy inverso que permite acceder a los servicios a trav�
 - `app.com/test` - Acceso a los resultados de los tests unitarios.
 - `app.com/coverage` - Acceso al informe de cobertura de Jacoco.
 
-```nginx
+`nginx.conf`
+
+```
 events {}
 
 http {
