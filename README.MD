@@ -14,8 +14,7 @@ El despliegue se realiza utilizando Docker para administrar múltiples contenedo
 
 
 ```dockerfile
-
-   FROM gradle:jdk21-alpine AS build
+    FROM gradle:jdk21-alpine AS build
 
     WORKDIR /app
 
@@ -51,91 +50,88 @@ Cada servidor se conecta a un volumen específico para acceder a sus archivos HT
 
 ```docker-compose.yml
 
-   services:
-    app:
-        build:
-        context: .
-        dockerfile: Dockerfile
-        volumes:
-        - coverage_data:/app/jacoco  
-        - test_data:/app/test 
-        - javadoc_data:/app/javadoc
-
-        
-    coverage:
-        image: ubuntu/nginx
-        container_name: coverage_server
-        volumes:
-        - coverage_data:/var/www/html/
-        - ./coverage/sites-available:/etc/nginx/sites-available 
-        restart: always
-        depends_on:
-        - app
-        networks:
-        - proxy
-    
-
-    
-    test:
-        image: ubuntu/nginx
-        container_name: test_server
-        volumes:
-        - test_data:/var/www/html/
-        - ./test/sites-available:/etc/nginx/sites-available 
-        restart: always
-        depends_on:
-        - app
-        networks:
-        - proxy
-
-    doc:
-        image: ubuntu/apache2
-        container_name: doc_server
-        volumes:
-        - javadoc_data:/var/www/html
-        - ./doc/sites-available:/etc/apache2/sites-available 
-        restart: always
-        depends_on:
-        - app
-        networks:
-        - proxy
-
-    appServer:
-        image: ubuntu/nginx
-        container_name: app_server
-        volumes:
-        - ./app/website:/var/www/html/
-        - ./app/sites-available:/etc/nginx/sites-available 
-        restart: always
-        networks:
-        - proxy
-
-    proxy:
-        image: ubuntu/nginx
-        container_name: proxy_server
-        ports:
-        - "80:80"
-        - "443:443"
-        volumes:
-        - ./proxy/conf/nginx.conf:/etc/nginx/nginx.conf
-        - ./proxy/certs:/etc/nginx/certs
-        restart: always
-        depends_on:
-        - app
-        - doc
-        - test
-        - coverage
-        - appServer
-        networks:
-        - proxy
-    
-    networks:
-    proxy:
-
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-    coverage_data:  
-    test_data:
-    javadoc_data: 
+      - coverage_data:/app/jacoco  
+      - test_data:/app/test 
+      - javadoc_data:/app/javadoc
+
+  coverage:
+    image: ubuntu/nginx
+    container_name: coverage_server
+    volumes:
+      - coverage_data:/var/www/html/
+      - ./coverage/sites-available:/etc/nginx/sites-available 
+    restart: always
+    depends_on:
+      - app
+    networks:
+      - proxy
+
+  test:
+    image: ubuntu/nginx
+    container_name: test_server
+    volumes:
+      - test_data:/var/www/html/
+      - ./test/sites-available:/etc/nginx/sites-available 
+    restart: always
+    depends_on:
+      - app
+    networks:
+      - proxy
+
+  doc:
+    image: ubuntu/apache2
+    container_name: doc_server
+    volumes:
+      - javadoc_data:/var/www/html
+      - ./doc/sites-available:/etc/apache2/sites-available 
+    restart: always
+    depends_on:
+      - app
+    networks:
+      - proxy
+
+  appServer:
+    image: ubuntu/nginx
+    container_name: app_server
+    volumes:
+      - ./app/website:/var/www/html/
+      - ./app/sites-available:/etc/nginx/sites-available 
+    restart: always
+    networks:
+      - proxy
+
+  proxy:
+    image: ubuntu/nginx
+    container_name: proxy_server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./proxy/certs:/etc/nginx/certs
+    restart: always
+    depends_on:
+      - app
+      - doc
+      - test
+      - coverage
+      - appServer
+    networks:
+      - proxy
+  
+networks:
+  proxy:
+
+volumes:
+  coverage_data:  
+  test_data:
+  javadoc_data: 
 
 ```
 
