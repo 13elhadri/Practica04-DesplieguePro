@@ -147,7 +147,7 @@ El proyecto incluye un proxy inverso que permite acceder a los servicios a trav√
 - `app.com/test` - Acceso a los resultados de los tests unitarios.
 - `app.com/coverage` - Acceso al informe de cobertura de Jacoco.
 
-```nginx.conf
+``` nginx.conf
 
     events {}
 
