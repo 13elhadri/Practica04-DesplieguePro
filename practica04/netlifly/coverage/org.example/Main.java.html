@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">practica04</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package org.example;
+
+import org.example.calc.Calculadora;
+
+import java.util.Scanner;
+
+<span class="nc" id="L7">public class Main {</span>
+    public static void main(String[] args) {
+
+<span class="nc" id="L10">        Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L11">        boolean salir = false;</span>
+
+        do {
+<span class="nc" id="L14">            System.out.println(&quot;Elija una opcion:&quot;);</span>
+<span class="nc" id="L15">            System.out.println(&quot;1. Suma&quot;);</span>
+<span class="nc" id="L16">            System.out.println(&quot;2. Resta&quot;);</span>
+<span class="nc" id="L17">            System.out.println(&quot;3. Multiplicacion&quot;);</span>
+<span class="nc" id="L18">            System.out.println(&quot;4. Division&quot;);</span>
+<span class="nc" id="L19">            System.out.println(&quot;5. Salir&quot;);</span>
+<span class="nc" id="L20">            System.out.print(&quot;Ingrese su opcion: &quot;);</span>
+
+<span class="nc bnc" id="L22" title="All 2 branches missed.">            if (!scanner.hasNextInt()) {</span>
+<span class="nc" id="L23">                System.out.println(&quot;Error: Debe ingresar un numero entre 1 y 5.&quot;);</span>
+<span class="nc" id="L24">                scanner.next();</span>
+<span class="nc" id="L25">                continue;</span>
+            }
+
+<span class="nc" id="L28">            int opcion = scanner.nextInt();</span>
+
+<span class="nc bnc" id="L30" title="All 6 branches missed.">            switch (opcion) {</span>
+                case 1:
+<span class="nc" id="L32">                    System.out.print(&quot;Escoja el primer numero: &quot;);</span>
+<span class="nc" id="L33">                    int num1 = scanner.nextInt();</span>
+<span class="nc" id="L34">                    System.out.print(&quot;Escoja el segundo numero: &quot;);</span>
+<span class="nc" id="L35">                    int num2 = scanner.nextInt();</span>
+<span class="nc" id="L36">                    int resultadoSuma = Calculadora.sumar(num1, num2);</span>
+<span class="nc" id="L37">                    System.out.println(&quot;El resultado es: &quot; + resultadoSuma);</span>
+<span class="nc" id="L38">                    break;</span>
+
+                case 2:
+<span class="nc" id="L41">                    System.out.print(&quot;Escoja el primer numero: &quot;);</span>
+<span class="nc" id="L42">                    int num3 = scanner.nextInt();</span>
+<span class="nc" id="L43">                    System.out.print(&quot;Escoja el segundo numero: &quot;);</span>
+<span class="nc" id="L44">                    int num4 = scanner.nextInt();</span>
+<span class="nc" id="L45">                    int resultadoResta = Calculadora.restar(num3, num4);</span>
+<span class="nc" id="L46">                    System.out.println(&quot;El resultado es: &quot; + resultadoResta);</span>
+<span class="nc" id="L47">                    break;</span>
+
+                case 3:
+<span class="nc" id="L50">                    System.out.print(&quot;Escoja el primer numero: &quot;);</span>
+<span class="nc" id="L51">                    int num5 = scanner.nextInt();</span>
+<span class="nc" id="L52">                    System.out.print(&quot;Escoja el segundo numero: &quot;);</span>
+<span class="nc" id="L53">                    int num6 = scanner.nextInt();</span>
+<span class="nc" id="L54">                    int resultadoMultiplicacion = Calculadora.multiplicar(num5, num6);</span>
+<span class="nc" id="L55">                    System.out.println(&quot;El resultado es: &quot; + resultadoMultiplicacion);</span>
+<span class="nc" id="L56">                    break;</span>
+
+                case 4:
+<span class="nc" id="L59">                    System.out.print(&quot;Escoja el primer numero: &quot;);</span>
+<span class="nc" id="L60">                    int num7 = scanner.nextInt();</span>
+<span class="nc" id="L61">                    System.out.print(&quot;Escoja el segundo numero: &quot;);</span>
+<span class="nc" id="L62">                    int num8 = scanner.nextInt();</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                    if (num8 != 0) {</span>
+<span class="nc" id="L64">                        double resultadoDivision = Calculadora.dividir(num7, num8);</span>
+<span class="nc" id="L65">                        System.out.println(&quot;El resultado es: &quot; + resultadoDivision);</span>
+<span class="nc" id="L66">                    } else {</span>
+<span class="nc" id="L67">                        System.out.println(&quot;Error: No se puede dividir entre cero.&quot;);</span>
+                    }
+<span class="nc" id="L69">                    break;</span>
+
+                case 5:
+<span class="nc" id="L72">                    salir = true;</span>
+<span class="nc" id="L73">                    System.out.println(&quot;Saliendo de la calculadora...&quot;);</span>
+<span class="nc" id="L74">                    break;</span>
+
+                default:
+<span class="nc" id="L77">                    System.out.println(&quot;Opcion no valida. Por favor elija una opcion entre 1 y 5.&quot;);</span>
+                    break;
+            }
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        } while (!salir);</span>
+
+<span class="nc" id="L82">        scanner.close();</span>
+<span class="nc" id="L83">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
